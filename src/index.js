@@ -5,6 +5,7 @@ const refs = {
     searchForm: document.querySelector('.search-form'),
     galleryContainer: document.querySelector('.gallery'),
     loadMoreBtn: document.querySelector('[data-action="load-more"]'),
+    searchBtn: document.querySelector('.search-btn'),
 
 };
 
@@ -12,6 +13,7 @@ const galleriesApiService = new GalleriesApiService();
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
+// refs.searchBtn.addEventListener('click', onSearch);
 
 function onSearch(event) {
     event.preventDefault();
