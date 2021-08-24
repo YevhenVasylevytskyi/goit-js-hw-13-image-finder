@@ -3,15 +3,7 @@ import cardTpl from './templates/card.hbs';
 import '@pnotify/core/dist/BrightTheme.css';
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
-import {
-  alert,
-  notice,
-  info,
-  success,
-  error,
-  defaultModules,
-} from "@pnotify/core";
-
+import { error, defaultModules, } from "@pnotify/core";
 
 const refs = {
     searchForm: document.querySelector('.search-form'),
@@ -34,50 +26,35 @@ function onSearch(event) {
     galleriesApiService.fetchArticles().then(data => {
         errorResult(data);
     });
-
     galleriesApiService.fetchArticles().then(appendCardsMarkup);
-
-    
 };
 
-function errorResult(data) {
-    galleriesApiService.fetchArticles().then(data => {
-        if (data.hits.length === 0) {
+function errorResult(data) {    
+        if (data.length === 0) {
             error({
                 text: 'Image not found',
-                delay: 3000
+                delay: 2000
             });
-        }
-    })
-    return
-}
+    }
+    return;
+};
 
-
-
-function onLoadMore() {
-     
-    galleriesApiService.fetchArticles().then(appendCardsMarkup);
-    
-    success({
-        text: "I'm a success message."        
-});
-}
+function onLoadMore() {     
+    galleriesApiService.fetchArticles().then(appendCardsMarkup);       
+};
 
 function scrollList() {
     refs.loadMoreBtn.scrollIntoView({
         behavior: 'smooth',
         block: 'end',
     })
-}
+};
 
 function appendCardsMarkup(hits) {
     refs.galleryContainer.insertAdjacentHTML('beforeend', cardTpl(hits));
     scrollList();
-}
+};
 
 function clearCardContainer() {
     refs.galleryContainer.innerHTML = '';
-}
-
-
-    
+};

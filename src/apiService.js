@@ -5,7 +5,7 @@ export default class GalleriesApiService {
      }
     
     fetchArticles() {
-        console.log(this);
+        // console.log(this);
         const key = '23013902-f53df9bcd1cd3c8e660b93280';
         const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${key}`;
         
@@ -15,7 +15,7 @@ export default class GalleriesApiService {
             this.incrementPage();
 
             return data.hits;
-        }).catch(error => console.warn(error));
+        }).catch(console.log('Error'));
     }
 
     incrementPage() {
