@@ -8,14 +8,14 @@ export default class GalleriesApiService {
         console.log(this);
         const key = '23013902-f53df9bcd1cd3c8e660b93280';
         const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${key}`;
-
+        
     return fetch(url)
         .then(responce => responce.json())
         .then(data => {
             this.incrementPage();
 
             return data.hits;
-        });
+        }).catch(error => console.warn(error));
     }
 
     incrementPage() {

@@ -1,5 +1,17 @@
 import GalleriesApiService from './apiService';
 import cardTpl from './templates/card.hbs';
+import '@pnotify/core/dist/BrightTheme.css';
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import {
+  alert,
+  notice,
+  info,
+  success,
+  error,
+  defaultModules,
+} from "@pnotify/core";
+
 
 const refs = {
     searchForm: document.querySelector('.search-form'),
@@ -19,12 +31,36 @@ function onSearch(event) {
     clearCardContainer();
     galleriesApiService.query = event.currentTarget.elements.query.value;
     galleriesApiService.resetPage();
+    galleriesApiService.fetchArticles().then(data => {
+        errorResult(data);
+    });
+
     galleriesApiService.fetchArticles().then(appendCardsMarkup);
+
+    
+};
+
+function errorResult(data) {
+    galleriesApiService.fetchArticles().then(data => {
+        if (data.hits.length === 0) {
+            error({
+                text: 'Image not found',
+                delay: 3000
+            });
+        }
+    })
+    return
 }
+
+
 
 function onLoadMore() {
      
-    galleriesApiService.fetchArticles().then(appendCardsMarkup);    
+    galleriesApiService.fetchArticles().then(appendCardsMarkup);
+    
+    success({
+        text: "I'm a success message."        
+});
 }
 
 function scrollList() {
@@ -42,3 +78,6 @@ function appendCardsMarkup(hits) {
 function clearCardContainer() {
     refs.galleryContainer.innerHTML = '';
 }
+
+
+    
